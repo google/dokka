@@ -170,6 +170,20 @@ public class JavaTest {
         }
     }
 
+    /**
+     * @restrictTo behaves like @hide.  This test is very similar to the [hideAnnotation] test.
+     */
+    @Test fun restrictToAnnotation() {
+        verifyJavaPackageMember("testdata/java/restrictToAnnotation.java") { cls ->
+            assertEquals(1, cls.members(NodeKind.Function).size)
+            assertEquals(1, cls.members(NodeKind.Property).size)
+
+            // The test file contains two classes, one of which is restricted.
+            // The test for @RestrictTo annotation on classes is via verifyJavaPackageMember(),
+            // which will throw an IllegalArgumentException if it detects more than one class.
+        }
+    }
+
     @Test fun annotatedAnnotation() {
         verifyJavaPackageMember("testdata/java/annotatedAnnotation.java") { cls ->
             assertEquals(1, cls.annotations.size)

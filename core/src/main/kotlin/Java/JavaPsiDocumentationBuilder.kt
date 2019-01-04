@@ -161,6 +161,7 @@ class JavaPsiDocumentationBuilder : JavaDocumentationBuilder {
             skipElementByVisibility(element) ||
                     hasSuppressDocTag(element) ||
                     hasHideAnnotation(element) ||
+                    hasRestrictToAnnotation(element) ||
                     skipElementBySuppressedFiles(element)
 
     private fun skipElementByVisibility(element: Any): Boolean =
@@ -343,9 +344,38 @@ fun hasSuppressDocTag(element: Any?): Boolean {
  *
  * @return true if @hide is present, otherwise false
  *
- * Note: this does not process @hide annotations in KDoc.  For KDoc, use the @suppress tag instead, which is processed
- * by [hasSuppressDocTag].
+ * This function is similar to [hasRestrictToAnnotation].
+ *
+ * Note: this does not process @hide annotations in KDoc.
+ * For KDoc, use the @suppress tag instead, which is processed by [hasSuppressDocTag].
  */
-fun hasHideAnnotation(element: Any?): Boolean {
-    return element is PsiDocCommentOwner && element.docComment?.run { findTagByName("hide") != null } ?: false
+fun hasHideAnnotation(element: Any?) = hasAHiddenNotation(element, "hide")
+
+/**
+ * Determines if the @RestrictTo annotation is present in a Javadoc comment.
+ *
+ * @param element a doc element to analyze for the presence of @RestrictTo
+ *
+ * @return true if @RestrictTo is present, otherwise false
+ *
+ * This function is similar to [hasHideAnnotation]
+ *
+ * Note: this does not process @RestrictTo annotations in KDoc.
+ * For KDoc, use the @suppress tag instead, which is processed by [hasSuppressDocTag].
+ */
+fun hasRestrictToAnnotation(element: Any?) = hasAHiddenNotation(element, "RestrictTo")
+
+/**
+ * This is a helper method for [hasHideAnnotation] and [hasRestrictToAnnotation]
+ *
+ * Determines if the given annotation is present in a Javadoc comment.
+ *
+ * @param element a doc element to analyze for the presence of [hideAnnotation]
+ * @param hideAnnotation the annotation to search for
+ *
+ * @return true if [hideAnnotation] is present, otherwise false
+ *
+ */
+private fun hasAHiddenNotation(element: Any?, hideAnnotation: String): Boolean {
+    return element is PsiDocCommentOwner && element.docComment?.run { findTagByName(hideAnnotation) != null } ?: false
 }
