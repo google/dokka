@@ -662,6 +662,11 @@ open class JavaLayoutHtmlFormatOutputBuilder(
         bodyContent = {
             val node = page.node
             with(page) {
+
+                div(classes = "api-info-block") {
+                    apiAndDeprecatedVersions(node, inHeader = true)
+                }
+
                 if (node.artifactId.name.isNotEmpty()) {
                     div(classes = "api-level") { br { +"belongs to Maven artifact ${node.artifactId}" } }
                 }
@@ -847,12 +852,15 @@ open class JavaLayoutHtmlFormatOutputBuilder(
         return false
     }
 
-    protected open fun FlowContent.apiAndDeprecatedVersions(node: DocumentationNode) {
+    protected open fun FlowContent.apiAndDeprecatedVersions(node: DocumentationNode, inHeader: Boolean = false) {
         val apiLevelExists = node.apiLevel.name.isNotEmpty()
         val deprecatedLevelExists = node.deprecatedLevel.name.isNotEmpty()
         if (apiLevelExists || deprecatedLevelExists) {
             div(classes = "api-level") {
                 if (apiLevelExists) {
+                    if (inHeader) {
+                        br
+                    }
                     +"Added in "
                     a(href = "https://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels") {
                         +"API level ${node.apiLevel.name}"
