@@ -44,10 +44,10 @@ object DownloadSamples {
             if (response.isSuccessful) {
 
                 //save .tar.gz file to filepath designated by map
-                var currentFile = File(filepath)
+                val currentFile = File(filepath)
                 currentFile.mkdirs()
 
-                var fos = FileOutputStream("$filepath.tar.gz")
+                val fos = FileOutputStream("$filepath.tar.gz")
                 fos.write(response.body?.bytes())
                 fos.close()
 
