@@ -33,6 +33,8 @@ dependencies {
     compile "teamcity:kotlin-ide-common:$bundled_kotlin_compiler_version"
     compile "org.jetbrains:markdown:$markdownVersion"
 
+    implementation "com.squareup.okhttp3:okhttp:4.0.0-RC1"
+
     compile intellijCoreAnalysis()
 
 //    Google version of the library in the libs folder. Fixing 129528660

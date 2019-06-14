@@ -4,6 +4,7 @@ package org.jetbrains.dokka
 import com.sampullara.cli.Args
 import com.sampullara.cli.Argument
 import org.jetbrains.dokka.DokkaConfiguration.ExternalDocumentationLink
+import org.jetbrains.dokka.Utilities.DownloadSamples
 
 import java.io.File
 import java.net.MalformedURLException
@@ -22,6 +23,9 @@ class DokkaArguments {
 
     @set:Argument(value = "samples", description = "Source root for samples")
     var samples: String = ""
+
+    @set:Argument(value = "useSamplesURL", description = "Download samples from URL into root folder")
+    var useSamplesURL: Boolean = false
 
     @set:Argument(value = "output", description = "Output directory path")
     var outputDir: String = "out/doc/"
@@ -121,6 +125,8 @@ object MainKt {
         }
 
         val classPath = arguments.classpath.split(File.pathSeparatorChar).toList()
+
+        if (arguments.useSamplesURL) DownloadSamples.downloadSamples()
 
         val documentationOptions = DocumentationOptions(
             arguments.outputDir.let { if (it.endsWith('/')) it else it + '/' },
