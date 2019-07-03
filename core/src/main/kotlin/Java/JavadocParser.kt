@@ -462,8 +462,9 @@ class JavadocParser(
             }
         }
 
-        // Ignore the @usesMathJax tag
-        "usesMathJax" -> ""
+        "usesMathJax" -> {
+            "<script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG\"></script>"
+        }
 
         else -> tag.text
     }
