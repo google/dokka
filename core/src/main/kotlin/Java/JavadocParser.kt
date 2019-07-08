@@ -7,6 +7,7 @@ import com.intellij.psi.javadoc.*
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.IncorrectOperationException
 import com.intellij.util.containers.isNullOrEmpty
+import org.jetbrains.dokka.Formats.JavaLayoutHtmlFormatOutputBuilder
 import org.jetbrains.dokka.Model.CodeNode
 import org.jetbrains.kotlin.utils.join
 import org.jetbrains.kotlin.utils.keysToMap
@@ -463,7 +464,10 @@ class JavadocParser(
         }
 
         "usesMathJax" -> {
-            //"<head><script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG\"></script></head>"
+            var parent = tag.parent?.parent?.parent as? PsiClass
+            //parent?.allFields?.forEach { println(it) }
+            parent.
+
         }
 
         else -> tag.text

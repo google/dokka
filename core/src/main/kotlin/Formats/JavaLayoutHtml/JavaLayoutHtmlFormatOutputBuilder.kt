@@ -657,7 +657,9 @@ open class JavaLayoutHtmlFormatOutputBuilder(
         page,
         htmlConsumer,
         headContent = {
-
+            if(usesMathJax(page)) {
+                script("text/javascript", "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG") {}
+            }
         },
         bodyContent = {
             val node = page.node
@@ -687,6 +689,11 @@ open class JavaLayoutHtmlFormatOutputBuilder(
             }
         }
     )
+
+    private fun usesMathJax(page: Page.ClassPage): Boolean {
+        //if (page.)
+        return true
+    }
 
     protected open fun FlowContent.classIndexSummary(node: DocumentationNode) {
         nodeContent(node)
@@ -1020,7 +1027,6 @@ open class JavaLayoutHtmlFormatOutputBuilder(
             val nestedClasses = node.members.filter { it.kind in NodeKind.classLike } - enumValues
 
             val attributes = node.attributes
-
             val inheritedAttributes =
                     node.superclassTypeSequence
                             .toList()
