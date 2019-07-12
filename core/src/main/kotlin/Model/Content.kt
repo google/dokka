@@ -105,6 +105,8 @@ object ContentIndentedSoftLineBreak: ContentNode {
         get() = 0
 }
 
+class HeaderBlock(val src: String) : ContentBlock()
+
 class ContentParagraph() : ContentBlock()
 class ContentEmphasis() : ContentBlock()
 class ContentStrong() : ContentBlock()

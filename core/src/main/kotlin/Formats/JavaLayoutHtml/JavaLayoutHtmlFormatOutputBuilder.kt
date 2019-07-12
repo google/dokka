@@ -23,7 +23,6 @@ open class JavaLayoutHtmlFormatOutputBuilder(
 
     val htmlConsumer = output.appendHTML()
 
-
     private fun FlowContent.hN(
         level: Int,
         classes: String? = null,
@@ -157,6 +156,7 @@ open class JavaLayoutHtmlFormatOutputBuilder(
             }
             is ContentSection -> {
             }
+            is HeaderBlock -> script("text/javascript", content.src) {}
             is ContentBlock -> contentNodesToMarkup(content.children, contextUri)
         }
     }
@@ -657,9 +657,7 @@ open class JavaLayoutHtmlFormatOutputBuilder(
         page,
         htmlConsumer,
         headContent = {
-            if(usesMathJax(page)) {
-                script("text/javascript", "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG") {}
-            }
+
         },
         bodyContent = {
             val node = page.node
@@ -689,11 +687,6 @@ open class JavaLayoutHtmlFormatOutputBuilder(
             }
         }
     )
-
-    private fun usesMathJax(page: Page.ClassPage): Boolean {
-        //if (page.)
-        return true
-    }
 
     protected open fun FlowContent.classIndexSummary(node: DocumentationNode) {
         nodeContent(node)

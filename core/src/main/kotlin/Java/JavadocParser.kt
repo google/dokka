@@ -250,6 +250,9 @@ class JavadocParser(
         doc.body().childNodes().forEach {
             convertHtmlNode(it)?.let { append(it) }
         }
+        doc.head().childNodes().forEach {
+            convertHtmlNode(it)?.let { append(it) }
+        }
     }
 
     private fun ContentBlock.convertJavadocElementsToAttrDesc(elements: Iterable<PsiElement>, element: PsiNamedElement) {
@@ -286,6 +289,7 @@ class JavadocParser(
     }
 
     private fun convertHtmlNode(node: Node, isBlockCode: Boolean = false): ContentNode? {
+
         if (isBlockCode) {
             return if (node is TextNode) { // Fixes b/129762453
                 val codeNode = CodeNode(node.wholeText, "")
@@ -304,6 +308,7 @@ class JavadocParser(
                     childBlock.append(child)
                 }
             }
+
             return (childBlock)
         }
         return null
@@ -352,6 +357,8 @@ class JavadocParser(
             if (divClass == "special reference" || divClass == "note") ContentSpecialReference()
             else ContentParagraph()
         }
+
+        "script" -> HeaderBlock(element.attr("src"))
 
         else -> ContentBlock()
     }
@@ -464,10 +471,7 @@ class JavadocParser(
         }
 
         "usesMathJax" -> {
-            var parent = tag.parent?.parent?.parent as? PsiClass
-            //parent?.allFields?.forEach { println(it) }
-            parent.
-
+            "<script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG\"></script>"
         }
 
         else -> tag.text
@@ -670,3 +674,4 @@ class JavadocParser(
 
     private data class InitialSpaceIndent(var value: Int = -1)
 }
+
