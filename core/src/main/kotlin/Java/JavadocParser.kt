@@ -289,7 +289,6 @@ class JavadocParser(
     }
 
     private fun convertHtmlNode(node: Node, isBlockCode: Boolean = false): ContentNode? {
-
         if (isBlockCode) {
             return if (node is TextNode) { // Fixes b/129762453
                 val codeNode = CodeNode(node.wholeText, "")
@@ -308,7 +307,6 @@ class JavadocParser(
                     childBlock.append(child)
                 }
             }
-
             return (childBlock)
         }
         return null
@@ -471,7 +469,8 @@ class JavadocParser(
         }
 
         "usesMathJax" -> {
-            "<script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG\"></script>"
+            "<script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare." +
+                    "com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG\"></script>"
         }
 
         else -> tag.text
@@ -674,4 +673,3 @@ class JavadocParser(
 
     private data class InitialSpaceIndent(var value: Int = -1)
 }
-

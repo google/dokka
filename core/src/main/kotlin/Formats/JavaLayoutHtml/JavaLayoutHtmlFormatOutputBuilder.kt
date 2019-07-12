@@ -1020,6 +1020,7 @@ open class JavaLayoutHtmlFormatOutputBuilder(
             val nestedClasses = node.members.filter { it.kind in NodeKind.classLike } - enumValues
 
             val attributes = node.attributes
+
             val inheritedAttributes =
                     node.superclassTypeSequence
                             .toList()
