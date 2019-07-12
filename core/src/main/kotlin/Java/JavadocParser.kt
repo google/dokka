@@ -470,7 +470,7 @@ class JavadocParser(
 
         "usesMathJax" -> {
             "<script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare." +
-                    "com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_SVG\"></script>"
+                    "com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG\"></script>"
         }
 
         else -> tag.text
