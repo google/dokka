@@ -1,6 +1,8 @@
 dokka [![TeamCity (build status)](https://teamcity.jetbrains.com/app/rest/builds/buildType:(id:KotlinTools_Dokka_DokkaGradleDacDist)/statusIcon)](http://teamcity.jetbrains.com/viewType.html?buildTypeId=KotlinTools_Dokka_DokkaGradleDacDist&branch_KotlinTools_Dokka=%3Cdefault%3E&guest=1)
 =====
 
+# ** This repo has been deprecated, and development on this Dokka fork now occurs on AOSP ([link](https://android.googlesource.com/platform/external/dokka/)) **
+
 **_Note_: This is Google's fork of Dokka, customized for [Android API reference docs](https://developer.android.com/reference/)
 on [developer.android.com](https://developer.android.com/) and other Google products.**
 The main working branch in this fork is
